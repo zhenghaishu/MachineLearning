@@ -1,0 +1,11 @@
+刘一	黄飞鸿	movie
+刘一	风清扬	music
+陈二	黄飞鸿	movie
+陈二	黄昏	music
+张三	黄飞鸿	movie
+张三	新龙门客栈	movie
+张三	爱就一个字	music
+李四	新龙门客栈	movie
+李四	爱就一个字	music
+李四	古拉格群岛	book
+王五	爱就一个字	music
