@@ -12,10 +12,14 @@ def euclDistance(vector1, vector2):
 # init centroids with random samples
 def initCentroids(dataSet, k):
 	numSamples, dim = dataSet.shape
-	#pdb.set_trace()
 	centroids = zeros((k, dim))
 	for i in range(k):
 		index = int(random.uniform(0, numSamples))
+		if 0 == i:
+			index = 1
+		else:
+			index = 0
+		print(index)
 		centroids[i, :] = dataSet[index, :]
 	return centroids
 

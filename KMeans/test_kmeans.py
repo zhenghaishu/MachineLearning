@@ -18,7 +18,7 @@ for line in fileIn.readlines():
 ## step 2: clustering...
 print ("step 2: clustering...")
 dataSet = mat(dataSet)
-k = 4
+k = 2
 centroids, clusterAssment = kmeans(dataSet, k)
 
 ## step 3: show the result
