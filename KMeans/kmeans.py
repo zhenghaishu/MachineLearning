@@ -7,7 +7,7 @@ import pdb
 
 # calculate Euclidean distance
 def euclDistance(vector1, vector2):
-	return sqrt(sum(power(vector2 - vector1, 2)))
+	return sum(power(vector2 - vector1, 2))
 
 # init centroids with random samples
 def initCentroids(dataSet, k):
@@ -42,21 +42,25 @@ def kmeans(dataSet, k):
 			minIndex = 0
 			## for each centroid
 			## step 2: find the centroid who is closest
+			pdb.set_trace()
 			for j in range(k):
 				distance = euclDistance(centroids[j, :], dataSet[i, :])
 				if distance < minDist:
 					minDist  = distance
 					minIndex = j
 			
+			
 			## step 3: update its cluster
 			if clusterAssment[i, 0] != minIndex:
 				clusterChanged = True
 				clusterAssment[i, :] = minIndex, minDist**2
-
+		
+		print("clusterAssment : %", clusterAssment)
 		## step 4: update centroids
 		for j in range(k):
 			pointsInCluster = dataSet[nonzero(clusterAssment[:, 0].A == j)[0]]
 			centroids[j, :] = mean(pointsInCluster, axis = 0)
+		print("centroids: %", centroids)
 
 	print ('Congratulations, cluster complete!')
 	return centroids, clusterAssment
