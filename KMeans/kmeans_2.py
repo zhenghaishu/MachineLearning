@@ -16,24 +16,14 @@ def initCentroids(dataSet, k):
 	s = set()
 	for i in range(1, k + 1):
 		while True:
-			index = int(random.uniform(0, numSamples))
-			#这里为了方便查看结果，下面四行代码强制将两次随机数分别置为1和0
-			#若能理解此程序，则下面四行代码要删掉，才是真正的随机数
-			if 1 == i:
-				index = 1
-			elif 2 == i:
-				index = 0
-				
+			index = int(random.uniform(0, numSamples))				
 			#去重操作
 			if index not in s:
 				s.add(index)
 				break
-
-		print ("random index: %d" % index)
+				
 		centroids[i, :] = dataSet[index, :]
 
-	print("\ncentroids:")
-	print(centroids)
 	return centroids
 
 	
@@ -55,9 +45,6 @@ def kmeans(dataSet, k):
 	clusterAssment = mat(zeros((numSamples, 2)))
 	for i in range(numSamples):
 		clusterAssment[i, 0] = -1
-
-	print("\nInitial clusterAssment:")
-	print(clusterAssment)
 	
 	clusterChanged = True
 
@@ -67,8 +54,8 @@ def kmeans(dataSet, k):
 	# 如果收敛完毕，则clusterChanged为False
 	while clusterChanged:
 		clusterChanged = False
+		
 		# 对于每个样本点
-		print("\n")
 		for i in range(numSamples):
 			minDist = 100000.0
 			minIndex = 0
@@ -77,11 +64,9 @@ def kmeans(dataSet, k):
 			# step 2: 找到最近的样本中心
 			for j in range(1, k + 1):
 				distance = euclDistance(centroids[j, :], dataSet[i, :])
-				print("i = %d, j = %d, distance = %s" % (i, j, distance))
 				if distance < minDist:
 					minDist = distance
 					minIndex = j
-			print("minIndex = %d, minDist = %f" % (minIndex, minDist))
 
 			# step 3: 更新样本点与中心点的分配关系
 			if clusterAssment[i, 0] != minIndex:
@@ -89,15 +74,12 @@ def kmeans(dataSet, k):
 				clusterAssment[i, :] = minIndex, minDist
 			else:
 				clusterAssment[i, 1] = minDist
-			print ("clusterAssment:\n %s \n" % clusterAssment)
 
 		# step 4: 更新样本中心
 		for j in range(1, k + 1):
 			# 改变中心心位置
 			pointsInCluster = dataSet[nonzero(clusterAssment[:, 0].A == j)[0]]
-			print("\nPointsInCluster:\n%s\n" % pointsInCluster)
 			centroids[j, :] = mean(pointsInCluster, axis=0)
-			print("\ncentroids:\n%s\n" % centroids)
 
 	print ('Congratulations, cluster complete!')
 	return centroids, clusterAssment
@@ -131,7 +113,7 @@ def showCluster(dataSet, k, centroids, clusterAssment):
 # step 1: 载入数据
 print ("step 1: load data...")
 dataSet = []
-fileIn = open('./testSet.txt')
+fileIn = open('./testSet2.txt')
 for line in fileIn.readlines():
 	lineArr = line.strip().split('\t')
 	dataSet.append([float(lineArr[0]), float(lineArr[1])])
@@ -142,7 +124,7 @@ print ("step 2: clustering...")
 dataSet = mat(dataSet)
 print ("dataSet:")
 print (dataSet)
-k = 2
+k = 4
 centroids, clusterAssment = kmeans(dataSet, k)
 
 # 
